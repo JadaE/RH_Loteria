@@ -38,3 +38,8 @@ while count!=1:
     count = count +1
 
 print(str(dictOfBoards))
+#static folder holding all images, find image in folder
+#image files have to be consistant, all certain size
+#python libraries for dropping pics onto other pics
+#make a list of lists instead of a dictionary
+#500 boards not 400
