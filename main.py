@@ -1,7 +1,7 @@
 #Made by Jada Ebong with assistance from Leon Yuan
 import random, os
 from fpdf import FPDF
-pdf = FPDF()
+pdf = FPDF('P','cm','A4')
 count = 0
 boards = []
 while count!=5:
@@ -44,15 +44,34 @@ while count!=5:
     with (open(os.path.join(path, filename), "w+")):
         #PDF things
         pdf.add_page()
-        pdf.set_font('Arial','B',8)
-        pdf.cell(40,10,str(slot))
-        pdf.output(extPath,'')
+        pdf.set_font('Arial','',12)
+        pdf.set_margins(2,1,2)
+#TODO: learn how to pass images into a cell
+        #here instead of words, pass the image
+        pdf.cell(19,6,"RowdyHacks Loteria Presented by AT&T",1,1)
+        pdf.cell(20,1,"",0,1)
+        for x in range(0,16):
+            if (x %4)-3==0 and x!=0:
+                #lnnum=1
+                pdf.cell(3.5,4,str(slot[x]),1,1)
+                if x != 15:
+                 pdf.cell(20,1,"",0,1)
+            else:
+                #lnnum = 0
+                pdf.cell(3.5,4,str(slot[x]),1,0)
+                pdf.cell(1,4,"",0)
+                            
+#for images, use call a def and send in slot[x]
+# then in def return slot[x].pdf
+        pdf.output(extPath,'F')
 
     print(filename)
     print(slot)
 
     #increments count for the next board
     count = count +1
+#!!!!only pdf's #0
+
 
 
 #static folder holding all images, find image in folder
