@@ -31,8 +31,19 @@ while count!=5:
         #    if newS == y:
         #        cards.remove(newS)
         slot[x] = newS
+    filename = str(count) + '.txt'
+    path = str(os.getcwd()) + "boards\\"
+    line = str.encode(str(slot))
+    print(path)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    fd = open(os.path.join(path, filename), "w+")
+    #with fd as temp_file:
+    fd.write(str(slot))
+        #os.write(fd,"line")
+    print(filename)
     print(slot)
-    print()
+    
     #dictOfBoards[count].update(slot)
     #dictOfBoards[count].append('*********************')
     count = count +1
