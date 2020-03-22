@@ -1,7 +1,9 @@
 #Made by Jada Ebong with assistance from Leon Yuan
 import random, os
 from fpdf import FPDF
+pdf = FPDF()
 count = 0
+boards = []
 while count!=5:
     #all possible cards
     cards = ["El gallo","El diablito","La dama","El catrín",
@@ -27,13 +29,24 @@ while count!=5:
         cards.remove(newS)
         slot[x] = newS
 
+    #check for repeating boards
+    if slot in boards:
+        break
+    else:
+        boards.append(slot)
+
     #File I/O: creates a unique file for each board in RH_Loteria/boards
-    filename = str(count) + '.txt'
+    filename =  str(count) + '.pdf' #add "YourLoteriaBoard" + # + .pdf
     path = str(os.getcwd()) + "/boards/"
+    extPath = path + filename
     if not os.path.exists(path):
         os.makedirs(path)
-    fd = open(os.path.join(path, filename), "w+")
-    fd.write(str(slot))
+    with (open(os.path.join(path, filename), "w+")):
+        #PDF things
+        pdf.add_page()
+        pdf.set_font('Arial','B',8)
+        pdf.cell(40,10,str(slot))
+        pdf.output(extPath,'')
 
     print(filename)
     print(slot)
