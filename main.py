@@ -32,7 +32,7 @@ while count!=5:
         #        cards.remove(newS)
         slot[x] = newS
     filename = str(count) + '.txt'
-    path = str(os.getcwd()) + "boards\\"
+    path = str(os.getcwd()) + "/boards/"
     line = str.encode(str(slot))
     print(path)
     if not os.path.exists(path):
