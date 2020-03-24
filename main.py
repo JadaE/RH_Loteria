@@ -1,23 +1,22 @@
 #Made by Jada Ebong with assistance from Leon Yuan
 import random, os
 from fpdf import FPDF
-pdf = FPDF('P','cm','A4')
 count = 0
 boards = []
 while count!=5:
     #all possible cards
-    cards = ["El gallo","El diablito","La dama","El catrín",
-            "El paraguas","La sirena","La escalera","La botella",
-            "El barril","El árbol","El melón","El valiente",
-            "El gorrito","La muerte","La pera","La bandera","El bandolón",
-            "El violoncello","La garza","El pájaro","La mano","La bota",
-            "La luna","El cotorro","El HEB Partner","El Rowdy","El corazón",
-            "La sandía","El tambor","El camarón","Las jaras","El músico",
-            "La araña","El soldado","La estrella","El cazo","El mundo",
-            "El Roadrunner","El nopal","El alacrán","La rosa","La calavera",
-            "La campana","El cantarito","El venado","El Sol","La corona",
-            "La chalupa","El pino","El pescado","La palma","La maceta",
-            "El arpa","La rana"]
+    cards = ["El_gallo","El_diablito","La_dama","El_catrín",
+            "El_paraguas","La_sirena","La_escalera","La_botella",
+            "El_barril","El_árbol","El_melón","El_valiente",
+            "El_gorrito","La_muerte","La_pera","La_bandera","El_bandolón",
+            "El_violoncello","La_garza","El_pájaro","La_mano","La_bota",
+            "La_luna","El_cotorro","El_Rowdy","El_corazón",
+            "La_sandía","El_tambor","El_camarón","Las_jaras","El_músico",
+            "La_araña","El_soldado","La_estrella","El_cazo","El_mundo",
+            "El_Roadrunner","El_nopal","El_alacrán","La_rosa","La_calavera",
+            "La_campana","El_cantarito","El_venado","El_Sol","La_corona",
+            "La_chalupa","El_pino","El_pescado","La_palma","La_maceta",
+            "El_arpa","La_rana"]
             #change? : el negrito(Rowdy), el apache(Roadrunner), el borracho?
     
     #slot represents the 16 different locations on a 4x4 loteria board
@@ -43,21 +42,23 @@ while count!=5:
         os.makedirs(path)
     with (open(os.path.join(path, filename), "w+")):
         #PDF things
+        pdf = FPDF('P','cm','A4')
         pdf.add_page()
         pdf.set_font('Arial','',12)
         pdf.set_margins(2,1,2)
 #TODO: learn how to pass images into a cell
         #here instead of words, pass the image
-        pdf.cell(19,6,"RowdyHacks Loteria Presented by AT&T",1,1)
+        #header = pdf.image("LoteriaBoardHeaderTextured.png", x = None, y = None, w = 19, h = 6, type = 'png', link = '')
+        pdf.image("LoteriaBoardHeaderTextured.png", x = None, y = None, w = 19, h = 6, type = 'png', link = '')
+        #pdf.cell(19,6,header,1,1)
         pdf.cell(20,1,"",0,1)
         for x in range(0,16):
             if (x %4)-3==0 and x!=0:
-                #lnnum=1
-                pdf.cell(3.5,4,str(slot[x]),1,1)
+                #pdf.cell(3.5,4,str(slot[x]),1,1)
+                pdf.image(images(slot[x]), x = None, y = None, w = 19, h = 6, type = 'png', link = '')
                 if x != 15:
                  pdf.cell(20,1,"",0,1)
             else:
-                #lnnum = 0
                 pdf.cell(3.5,4,str(slot[x]),1,0)
                 pdf.cell(1,4,"",0)
                             
@@ -70,7 +71,9 @@ while count!=5:
 
     #increments count for the next board
     count = count +1
-#!!!!only pdf's #0
+
+def images(name):
+
 
 
 
