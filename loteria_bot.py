@@ -7,6 +7,7 @@ Created on Wed Mar 25 16:32:47 2020
 # loteria_bot.py
 
 import discord
+import pickle
 
 TOKEN = 'NjkyNDc5MzY4MzUzNTQ2MzMy.XnvJEQ.bm6lTMTMDB5s9t5m5E1Hf1iUG8g'
 SERVER = '687850748389752843'
@@ -15,6 +16,12 @@ client = discord.Client()
 
 list = []
 #need a counter for boards plus a list for boards
+try:        
+    with open('listfile.data', 'rb') as filehandle:
+        # read the data as binary data stream
+        list = pickle.load(filehandle)
+except IOError:
+    print("file not found")
 
 @client.event
 async def on_message(message):
@@ -23,16 +30,18 @@ async def on_message(message):
         return
     
     if message.content.lower() == 'board me':
-        if message.author in list:
+        if str(message.author) in list:
             response = 'Hey! You already got one, silly goose!'
             await message.author.send(response)
         else:
             response = "Here you go!"
             await message.author.send(response)
-            # send file to author
-            await client.get_channel(692535391357632512).send(response + message.author)
+            # send file to hacker
+            await client.get_channel(692535391357632512).send(response + "\n" + str(message.author))
             # send file to log
-            list.append(message.author)
+            list.append(str(message.author))
+            with open('listfile.data', 'wb') as filehandle:
+                pickle.dump(list, filehandle)
         
 
 client.run(TOKEN)
