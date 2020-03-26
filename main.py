@@ -6,18 +6,18 @@ boards = []
 while count!=5:
     #all possible cards
     cards = ["El_gallo","El_diablito","La_dama","El_catrín",
-            "El_paraguas","La_escalera","La_botella",
+            "El_paraguas","La_sirena","La_escalera","La_botella",
             "El_barril","El_árbol","El_melón","El_valiente",
             "El_gorrito","La_muerte","La_pera","La_bandera","El_bandolón",
             "El_violoncello","La_garza","El_pájaro","La_mano","La_bota",
-            "La_luna","El_cotorro","El_corazón",
+            "La_luna","El_cotorro","El_Rowdy","El_corazón",
             "La_sandía","El_tambor","El_camarón","Las_jaras","El_músico",
             "La_araña","El_soldado","La_estrella","El_cazo","El_mundo",
-            "El_nopal","El_alacrán","La_rosa","La_calavera",
+            "El_Roadrunner","El_nopal","El_alacrán","La_rosa","La_calavera",
             "La_campana","El_cantarito","El_venado","El_Sol","La_corona",
             "La_chalupa","El_pino","El_pescado","La_palma","La_maceta",
             "El_arpa","La_rana"]
-            #change? : el negrito(El_Rowdy), el apache(El_Roadrunner), el borracho? La_sirena
+            #change? : el negrito(), el apache(), el borracho? 
     
     #slot represents the 16 different locations on a 4x4 loteria board
     slot = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
