@@ -29,9 +29,9 @@ async def on_message(message):
         else:
             response = "Here you go!"
             await message.author.send(response)
-            await client.get_channel(692535391357632512).send(response)
-            #await client.get_channel(692535391357632512).send(file=discord.File(file)) importing file
-            await client.get_channel(692535391357632512).send(message.author)
+            # send file to author
+            await client.get_channel(692535391357632512).send(response + message.author)
+            # send file to log
             list.append(message.author)
         
 
