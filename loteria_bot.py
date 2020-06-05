@@ -9,8 +9,8 @@ Created on Wed Mar 25 16:32:47 2020
 import discord
 import pickle
 
-TOKEN = 'NjkyNDc5MzY4MzUzNTQ2MzMy.XnvJEQ.bm6lTMTMDB5s9t5m5E1Hf1iUG8g'
-SERVER = '687850748389752843'
+TOKEN = '' #redacted
+SERVER = ''#redacted
 
 client = discord.Client()
 
