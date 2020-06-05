@@ -1,9 +1,10 @@
 #Made by Jada Ebong with assistance from Leon Yuan
 import random, os
 from fpdf import FPDF
+import hashlib
 count = 0
 boards = []
-while count!=5:
+while count!=500:
     #all possible cards
     cards = ["El_gallo","El_diablito","La_dama","El_catrín",
             "El_paraguas","La_sirena","La_escalera","La_botella",
@@ -35,10 +36,11 @@ while count!=5:
         boards.append(slot)
 
     #File I/O: creates a unique file for each board in RH_Loteria/boards
-    filename =  "YourLoteriaBoard" + str(count) + '.pdf' 
+    hash_string = f'HowdyRacks{count}';
+    hash_object = hashlib.sha1(hash_string.encode('utf-8'))
+    filename =  "LoteriaBoard_" + hash_object.hexdigest() + '.pdf' 
     path = str(os.getcwd()) + "/boards/"
     extPath = path + filename
-
     if not os.path.exists(path):
         os.makedirs(path)
     with (open(os.path.join(path, filename), "w+")):
@@ -68,8 +70,7 @@ while count!=5:
                 
         pdf.output(extPath,'F')
 
-    print(filename)
+    print(str(count) + " " +filename)
     print(slot)
-
     #increments count for the next board
     count = count +1
