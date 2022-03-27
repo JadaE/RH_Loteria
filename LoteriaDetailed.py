@@ -4,7 +4,7 @@ from fpdf import FPDF
 import hashlib
 count = 0
 boards = []
-while count!=500:
+while count<500:
     #all possible cards
     cards = ["El_gallo","El_diablito","La_dama","El_catrín",
             "El_paraguas","La_sirena","La_escalera","La_botella",
@@ -48,49 +48,46 @@ while count!=500:
         os.makedirs(path)
     
     #With the file now specified, we can begin creating the PDF
-    with (open(os.path.join(path, filename), "w+")):
-        #PDF start up
-        pdf = FPDF('P','cm','A4')
-        pdf.add_page()
-        pdf.set_font('Arial','',12)
-         #pdf.set_fill_color(203, 235, 232) #double check this jic***
-        pdf.set_margins(2,1,2)
-        
-        #Image is set to the top left most position after the margins
-        pdf.image("LoteriaBoardHeader_1.jpg", x = None, y = None, w = 19, h = 6, type = 'jpg', link = '')
-        
-        #This cell is adding space between header & cards
-        pdf.cell(20,1,"",0,1)
-        xaxis=2
-        yaxis=8
+    pdf = FPDF('P','cm','A4')
+    pdf.add_page()
+    pdf.set_font('Arial','',12)
+    pdf.set_margins(2,1,2)
+    
+    #Image is set to the top left most position after the margins
+    pdf.image("LoteriaBoardHeader_1.jpg", x = None, y = None, w = 19, h = 6, type = 'jpg', link = '')
+    
+    #This cell is adding space between header & cards
+    pdf.cell(20,1,"",0,1)
+    xaxis=2
+    yaxis=8
 
-        #Laying out each of the 16 card images with space inbetween
-        for x in range(0,16):
-            #Correlates with images in the preexisting folder
-            cardImage = 'cards/' + slot[x] + '.jpeg'
+    #Laying out each of the 16 card images with space inbetween
+    for x in range(0,16):
+        #Correlates with images in the preexisting folder
+        cardImage = 'cards/' + slot[x] + '.jpeg'
+        
+        #Math to place photos in correct spots
+        '''
+        This math calls for every index at the 4th slot (x=3,7,11) to create a new row in addition to inserting the image
+        whereas the remaining indexes should just insert the image and white space
+        with the exception of the 15th, as it is the last image, so no row/white space needed.
+        '''
+        if (x %4)-3==0 and x!=0:
+            pdf.image(cardImage, x = xaxis, y = yaxis, w = 3.5, h = 4, type = 'jpeg', link = '')
+            if x != 15:
+                #Could also have w=1 and ln= 1 (\n) or 2 (below) as long as it starts in a new line  
+                pdf.cell(20,1,"",0,0)  
+            xaxis = 2
+            yaxis = yaxis +5
+        else :
+            #Pastes image for indexes not at 3, 7, 11, &15
+            pdf.image(cardImage, x = xaxis, y = yaxis, w = 3.5, h = 4, type = 'jpeg', link = '')
+            #This cell immates white space to the right of the image
+            pdf.cell(1,4,"",0) 
+            #Start the xaxis after this white space
+            xaxis = xaxis + 4.5
             
-            #Math to place photos in correct spots
-            '''
-            This math calls for every index at the 4th slot (x=3,7,11) to create a new row in addition to inserting the image
-            whereas the remaining indexes should just insert the image and white space
-            with the exception of the 15th, as it is the last image, so no row/white space needed.
-            '''
-            if (x %4)-3==0 and x!=0:
-                pdf.image(cardImage, x = xaxis, y = yaxis, w = 3.5, h = 4, type = 'jpeg', link = '')
-                if x != 15:
-                    #Could also have w=1 and ln= 1 (\n) or 2 (below) as long as it starts in a new line  
-                    pdf.cell(20,1,"",0,0)  
-                xaxis = 2
-                yaxis = yaxis +5
-            else :
-                #Pastes image for indexes not at 3, 7, 11, &15
-                pdf.image(cardImage, x = xaxis, y = yaxis, w = 3.5, h = 4, type = 'jpeg', link = '')
-                #This cell immates white space to the right of the image
-                pdf.cell(1,4,"",0) 
-                #Start the xaxis after this white space
-                xaxis = xaxis + 4.5
-                
-        pdf.output(extPath,'F')
+    pdf.output(extPath,'F')
 
     print(str(count) + " " +filename)
     print(slot)
